@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <title><%=title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10">
+            <div class="text-center">
+                <h1>Virtual Stand-up</h1>
+                <p class="lead"><%= title %></p>
+            </div>
+            <hr>
+            <ul id="messages" style="margin-top: 2%"></ul>
+            <form action="/" method="">
+                <div class="form-group">
+                    <span style="bottom: 2%;" class="input-group-btn">
+                        <input id="chatMessage" name="chatMessage" class="form-control" placeholder="message" autocomplete="off">
+                        <button class="btn btn-primary">Send</button>
+                    </span>
+                </div>
+            </form>
+            <script src="/socket.io/socket.io.js"></script>
+            <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script>
+                $(function () {
+                    var socket = io();
+                    $('form').submit(function () {
+                        socket.emit('chat message', $('#chatMessage').val());
+                        $('#chatMessage').val('');
+                        return false;
+                    });
+                    socket.on('chat message', function (msg) {
+                        $('#messages').append($('<li>').text(msg));
+                    });
+                });
+            </script>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+</html>

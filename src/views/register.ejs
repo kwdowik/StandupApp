@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title><%=title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-4">
+            <div class="text-center">
+                <h1>Virtual Stand-up</h1>
+                <p class="lead"><%= title %></p>
+            </div>
+            <form class="for" name="singUpForm" action="/auth/register" method="post">
+                <div class="form-group">
+                    <input placeholder="User Name" class="form-control" name="userName" id="userName">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <button class="form-control btn-primary" id="Sign up">Sign up</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+</body>
+</html>

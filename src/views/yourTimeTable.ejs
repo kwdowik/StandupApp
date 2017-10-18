@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <title><%=title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.css' />
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery-ui.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    $(document).ready(function() {
+
+        function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                s4() + '-' + s4() + s4() + s4();
+        }
+
+        function dataOperation(event, url) {
+            if(url.indexOf('delete') >= 0) {
+                jQuery.post(url, {id: event.id});
+            }else {
+                jQuery.post(
+                    url,
+                    {
+                        id: event.id,
+                        title: event.title,
+                        workStart: event.start,
+                        workEnd: event.end
+                    }
+                );
+            }
+
+        }
+
+        function createDataOperation(event, url) {
+            dataOperation({
+                'id': event.id,
+                'title': event.title,
+                'start': new Date(event.start).toUTCString(),
+                'end': new Date(event.end).toUTCString(),
+            }, url);
+        }
+
+        var calendar = $('#calendar').fullCalendar({
+            events: {
+                url: '/workTimeTable/getEvents'
+            },
+            defaultView: 'agendaWeek',
+            contentHeight: 'auto',
+            minTime: "6:00",
+            maxTime: "20:00",
+            editable: true,
+            selectable: true,
+            weekends: false,
+            businessHours: {
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                dow: [ 1, 2, 3, 4, 5 ], // Monday - Firday
+                start: '7:00', // a start time (10am in this example)
+                end: '17:00', // an end time (6pm in this example)
+            },
+            //header and other values
+            select: function(start, end, allDay) {
+                endtime = moment(end).format('h:mm');
+                starttime = moment(start).format('ddd, MMM d, h:mm');
+                var mywhen = starttime + ' - ' + endtime;
+                $('#createEventModal #apptId').val(guid());
+                $('#createEventModal #apptStartTime').val(start);
+                $('#createEventModal #apptEndTime').val(end);
+                $('#createEventModal #apptAllDay').val(allDay);
+                $('#createEventModal #when').text(mywhen);
+                $('#createEventModal').modal('show');
+            },
+            eventDrop: function (event, delta, revertFunc) {
+//                alert(`eventDrop: ${event.title} \n start time: ${event.start}, \n end time: ${event.end} \n id: ${event.id}`);
+                createDataOperation(event, '/workTimeTable/update');
+            },
+            eventResize: function (event, delta, revertFunc) {
+//                alert(`eventResize: ${event.title} ,time: ${event.end}, id: ${event.id}`);
+                createDataOperation(event, '/workTimeTable/update');
+            },
+            eventClick: function (event, jsEvent, view) {
+//                alert(`eventClick: ${event.id}, \n ${event.start} \n ${event.end}`);
+                endtime = moment(event.end).format('h:mm');
+                starttime = moment(event.start).format('ddd, MMM d, h:mm');
+                var mywhen = starttime + ' - ' + endtime;
+                $('#deleteEventModal #deleteApptId').val(event.id);
+                $('#deleteEventModal #deleteApptStartTime').val(event.start);
+                $('#deleteEventModal #deleteApptEndTime').val(event.end);
+                $('#deleteEventModal #when').text(mywhen);
+                $('#deleteEventModal').modal('show');
+            }
+        });
+
+        $('#submitButton')
+            .on('click', function(e){
+                e.preventDefault();
+                doSubmit();
+        });
+
+        $('#deleteButton')
+            .on('click', function (e) {
+                e.preventDefault();
+                doDelete();
+            })
+
+        $('#createEventModal').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                event.preventDefault();
+                $('#submitButton').trigger('click');
+            }
+        });
+
+        function doDelete() {
+            $('#deleteEventModal').modal('hide');
+            console.log($('#deleteApptId').val());
+            console.log($('#deleteApptStartTime').val());
+            console.log($('#deleteApptEndTime').val());
+
+            createDataOperation({id: $('#deleteApptId').val()}, '/workTimeTable/delete');
+            $('#calendar').fullCalendar( 'refetchEvents' );
+
+        }
+
+        function doSubmit(){
+            $("#createEventModal").modal('hide');
+            console.log($('#apptId').val());
+            console.log($('#apptStartTime').val());
+            console.log($('#apptEndTime').val());
+            console.log($('#apptAllDay').val());
+
+            $("#calendar").fullCalendar('renderEvent',
+                {
+                    id: $('#apptId').val(),
+                    title: 'Work',
+                    start: new Date($('#apptStartTime').val()).toUTCString(),
+                    end: new Date($('#apptEndTime').val()).toUTCString(),
+                    allDay: ($('#apptAllDay').val() == "true"),
+                },
+                true);
+            createDataOperation(
+                {
+                    id: $('#apptId').val(),
+                    title: 'Work',
+                    start: $('#apptStartTime').val(),
+                    end: $('#apptEndTime').val(),
+                }, '/workTimeTable/create');
+        }
+    });
+</script>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-12">
+            <div class="text-center">
+                <h1>Virtual Stand-up</h1>
+                <p class="lead"><%= title %></p>
+            </div>
+            <% if(message.length > 0 ) { %>
+            <div class="alert alert-danger alert-error">
+                <%= message %>
+            </div>
+            <% } %>
+            <div id="calendar"></div>
+            <div id="createEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">Create Event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createAppointmentForm" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label" for="inputPatient">Event:</label>
+                                    <div class="controls">
+                                        <input type="hidden" id="apptId" />
+                                        <input type="hidden" id="apptStartTime"/>
+                                        <input type="hidden" id="apptEndTime"/>
+                                        <input type="hidden" id="apptAllDay" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="when">When:</label>
+                                    <div class="controls controls-row" id="when" style="margin-top:5px;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel2">Delete Event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="deleteAppointmentForm" class="form-horizontal">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input type="hidden" id="deleteApptId" />
+                                        <input type="hidden" id="deleteApptStartTime"/>
+                                        <input type="hidden" id="deleteApptEndTime"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="when">Do you want delete event from: </label>
+                                    <div class="controls controls-row" id="when" style="margin-top:5px;">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10"></div>
+        <div class="col">
+            <form name="saveTimeTable" action="/workTimeTable" method="post">
+                <div class="form-group">
+                    <input hidden="true" class="form-control" name="workHours" id="workHours">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title><%=title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <div class="text-center">
+                <h1>Virtual Stand-up</h1>
+                <p class="lead"><%= title %></p>
+            </div>
+            <div>
+            <% if (typeof userName == 'undefined') { %>
+                <button type="button" class="btn btn-primary btn-lg btn-block" disabled>Your Time Table</button>
+            <% } else { %>
+                <a href="/workTimeTable/getYourTimeTable" class="btn btn-primary btn-lg btn-block">Your Time Table</a>
+            <% } %>
+            </div>
+            <br/>
+            <div>
+                <form class="form-group" action="/workTimeTable/getTeammateTimeTable" method="post">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Your Teammates Time Tables</button>
+                    <select id="teammateName" name="teammateName" class="form-control" required>
+                        <option value="">(Select Teammate)</option>
+                        <% for (var i=0; i < users.length; i++) { %>
+                            <option value=<%= users[i].username %>><%= users[i].username %></option>
+                        <% } %>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+</body>
+</html>

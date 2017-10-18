@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><% title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</head>
+<body>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="text-center">
+        <h1>Virtual Stand-up</h1>
+        <p class="lead">This is a list of the last dozen meeting notes that were entered in. </p>
+    </div>
+    <div>
+        <!--<h2>Latest Notes</h2>-->
+        <div class="container">
+            <% if (typeof message != 'undefined') { %>
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                   <strong><%= message %></strong>
+                </div>
+            <% } %>
+            <!--Filter notes list by member name-->
+            <form action="/card" method="post">
+                <div class="row clearfix">
+                    <div class="col-md-4 column">
+                        <select id="memberName" name="memberName" class="form-control">
+                            <option value="">(Show All Members)</option>
+                            <!--<option value="Mark">Mark</option>-->
+                            <!--<option value="David">David</option>-->
+                            <!--<option value="John">John</option>-->
+                            <!--<option value="Mary">Mary</option>-->
+                            <!--<option value="Bob">Bob</option>-->
+                            <% for (var i=0; i < users.length; i++) { %>
+                                <option value=<%= users[i].username %>><%= users[i].username %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="col-md-8 column">
+                        <!-- Button -->
+                        <button id="btnFilterNotes" name="btnFilterNotes" class="btn btn-primary" type="submit">Filter Notes...</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br />
+        <div class="container">
+            <div class="col-md-12 column list-group">
+                <% var cards = (numberOfCards / 5) + 1%>
+                <% for(var i=0; i<notes.length; i++) { %>
+                <div class="list-group-item">
+                    <div>Note from <em><strong><%= notes[i].memberName %></strong></em> on: <%= notes[i].createdOn %>
+                        - for project: <strong><%= notes[i].project %></strong></div>
+                    <div><strong>Work yesterday:</strong><%= notes[i].workYesterday %></div>
+                    <div><strong>Work today:</strong><%= notes[i].workToday %></div>
+                    <div><strong>Impediment:</strong> <%= notes[i].impediment %></div>
+                </div>
+                <% } %>
+                <% if(cards > 2) { %>
+                    <div class="btn-group" role="group" aria-label="Footer">
+                        <% for(var i=1; i<cards; i++) { %>
+                            <% if (i == currentCard ) { %>
+                                <button onclick="location.href = '/card/<%= i %>'" type="button" class="btn btn-primary"><%= i %></button>
+                            <% } else { %>
+                                <button onclick="location.href = '/card/<%= i %>'" type="button" class="btn btn-light"><%= i %></button>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div><!-- /.container -->
+</body>
+</html>

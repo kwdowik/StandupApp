@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <title><%=title%></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.css' />
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/moment.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/lib/jquery-ui.min.js'></script>
+    <script src='https://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    $(document).ready(function() {
+
+        var calendar = $('#calendar').fullCalendar({
+            events: {
+                url: '/workTimeTable/getEvents',
+                data: {
+                    username: $('#teammate').val()
+                }
+            },
+            defaultView: 'agendaWeek',
+            contentHeight: 'auto',
+            minTime: "6:00",
+            maxTime: "20:00",
+            weekends: false,
+            businessHours: {
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                dow: [1, 2, 3, 4, 5], // Monday - Firday
+                start: '7:00', // a start time (10am in this example)
+                end: '17:00', // an end time (6pm in this example)
+            }
+        })
+    });
+</script>
+<% include templates/statusBar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-12">
+            <div class="text-center">
+                <h1>Virtual Stand-up</h1>
+                <p class="lead"><%= title %></p>
+            </div>
+            <% if(message.length > 0 ) { %>
+            <div class="alert alert-danger alert-error">
+                <%= message %>
+            </div>
+            <% } %>
+            <div id="calendar"></div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-10"></div>
+        <div class="col">
+            <form name="saveTimeTable" action="/workTimeTable" method="post">
+                <div class="form-group">
+                    <input hidden="true" class="form-control" name="workHours" id="workHours">
+                    <input hidden="true" class="form-control" name="teammate" id="teammate" value="<%=teammate%>">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+

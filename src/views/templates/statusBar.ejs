@@ -1,0 +1,28 @@
+<div class="container">
+        <nav class="navbar navbar-expand-lg navbar-primary bg-light">
+            <a class="navbar-brand" href="/">StandApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <% for (var i = 0; i < nav.length; i++) { %>
+                        <% if (IsSignInRequired(nav[i].Link)) { %>
+                            <% continue; %>
+                        <% } else if (nav[i].Link === '/auth' && typeof userName != 'undefined' ) { %>
+                            <% continue; %>
+                        <% } %>
+                        <li class="nav-item">
+                            <a class="nav-link" href=<%= nav[i].Link %>><%= nav[i].Text %></a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+            <% function IsSignInRequired (link) {
+                return (link === '/newnote'
+                        || link === '/discuss'
+                        || link === '/auth/logout')
+                        && typeof userName == 'undefined';
+            };%>
+        </nav>
+    </div>

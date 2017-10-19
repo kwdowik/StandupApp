@@ -2,29 +2,29 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/timeTableController.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/timeTableRoutes.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/discussController.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/discussRoutes.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/services/passport.service.js" />
-        <item url="file://$PROJECT_DIR$/dist/app.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/services/passport/local.strategy.js" />
-        <item url="file://$PROJECT_DIR$/dist/public/moment.min.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/services/passport/passport.service.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/cardController.js" />
         <item url="file://$PROJECT_DIR$/dist/src/models/workTimeTableModel.js" />
-        <item url="file://$PROJECT_DIR$/dist/public/socket.io/socket.io.js" />
-        <item url="file://$PROJECT_DIR$/dist/public/moment.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/cardRoutes.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/workTimeTableController.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/workTimeTableRoutes.js" />
-        <item url="file://$PROJECT_DIR$/dist/public/fullcalendar/fullcalendar.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/noteController.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/noteRoutes.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/services/socket.io.service.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/controllers/authController.js" />
-        <item url="file://$PROJECT_DIR$/dist/src/routes/authRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/cardController.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/services/passport/passport.service.js" />
+        <item url="file://$PROJECT_DIR$/dist/public/moment.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/services/passport/local.strategy.js" />
+        <item url="file://$PROJECT_DIR$/dist/app.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/services/passport.service.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/discussRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/discussController.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/timeTableRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/timeTableController.js" />
         <item url="file://$PROJECT_DIR$/dist/src/services/dbService.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/authRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/authController.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/services/socket.io.service.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/noteRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/noteController.js" />
+        <item url="file://$PROJECT_DIR$/dist/public/fullcalendar/fullcalendar.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/workTimeTableRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/controllers/workTimeTableController.js" />
+        <item url="file://$PROJECT_DIR$/dist/src/routes/cardRoutes.js" />
+        <item url="file://$PROJECT_DIR$/dist/public/moment.js" />
+        <item url="file://$PROJECT_DIR$/dist/public/socket.io/socket.io.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -36,29 +36,29 @@
       <root url="file://$PROJECT_DIR$/dist/src/models/noteModel.js" />
       <root url="file://$PROJECT_DIR$/dist/gulpfile.js" />
       <root url="file://$PROJECT_DIR$/dist/test/note.test.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/timeTableController.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/timeTableRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/discussController.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/discussRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/services/passport.service.js" />
-      <root url="file://$PROJECT_DIR$/dist/app.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/services/passport/local.strategy.js" />
-      <root url="file://$PROJECT_DIR$/dist/public/moment.min.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/services/passport/passport.service.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/cardController.js" />
       <root url="file://$PROJECT_DIR$/dist/src/models/workTimeTableModel.js" />
-      <root url="file://$PROJECT_DIR$/dist/public/socket.io/socket.io.js" />
-      <root url="file://$PROJECT_DIR$/dist/public/moment.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/cardRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/workTimeTableController.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/workTimeTableRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/public/fullcalendar/fullcalendar.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/noteController.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/noteRoutes.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/services/socket.io.service.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/controllers/authController.js" />
-      <root url="file://$PROJECT_DIR$/dist/src/routes/authRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/cardController.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/services/passport/passport.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/public/moment.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/services/passport/local.strategy.js" />
+      <root url="file://$PROJECT_DIR$/dist/app.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/services/passport.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/discussRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/discussController.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/timeTableRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/timeTableController.js" />
       <root url="file://$PROJECT_DIR$/dist/src/services/dbService.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/authRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/authController.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/services/socket.io.service.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/noteRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/noteController.js" />
+      <root url="file://$PROJECT_DIR$/dist/public/fullcalendar/fullcalendar.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/workTimeTableRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/controllers/workTimeTableController.js" />
+      <root url="file://$PROJECT_DIR$/dist/src/routes/cardRoutes.js" />
+      <root url="file://$PROJECT_DIR$/dist/public/moment.js" />
+      <root url="file://$PROJECT_DIR$/dist/public/socket.io/socket.io.js" />
     </CLASSES>
     <SOURCES />
   </library>

@@ -32,11 +32,6 @@
                     <div class="col-md-4 column">
                         <select id="memberName" name="memberName" class="form-control">
                             <option value="">(Show All Members)</option>
-                            <!--<option value="Mark">Mark</option>-->
-                            <!--<option value="David">David</option>-->
-                            <!--<option value="John">John</option>-->
-                            <!--<option value="Mary">Mary</option>-->
-                            <!--<option value="Bob">Bob</option>-->
                             <% for (var i=0; i < users.length; i++) { %>
                                 <option value=<%= users[i].username %>><%= users[i].username %></option>
                             <% } %>

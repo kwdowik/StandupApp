@@ -8,7 +8,7 @@ var workTimeTableController = function workTimeTableController(nav) {
 
     var getYourTimeTable = function getYourTimeTable(req, res) {
         console.log('UserName: ' + req.user.username);
-        res.render('workTimeTable', {
+        res.render('yourTimeTable', {
             title: 'Your Work Time Table',
             userName: req.user.username,
             nav: nav,

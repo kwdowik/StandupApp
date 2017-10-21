@@ -22,7 +22,7 @@
                 <%= message %>
             </div>
             <% } %>
-            <form class="form-horizontal" action="newnote" method="post">
+            <form class="form-horizontal" action="newnote" method="post" id="needs-validation" novalidate>
                 <fieldset>
 
                     <!-- Form Name -->
@@ -32,12 +32,8 @@
                     <div class="form-group">
                         <label class="control-label" for="memberName">Name</label>
                         <div>
-                            <select id="memberName" name="memberName" class="form-control">
-                                <option value="None">(Select Name)</option>
-                                <option value="Mark">Mark</option>
-                                <option value="David">David</option>
-                                <option value="John">John</option>
-                                <option value="Mary">Mary</option>
+                            <select id="memberName" name="memberName" class="form-control" disabled>
+                                <option value="<%=userName%>"><%=userName%></option>
                             </select>
                         </div>
                     </div>
@@ -46,12 +42,15 @@
                     <div class="form-group">
                         <label class="control-label" for="project">Current Project or Task</label>
                         <div>
-                            <select id="project" name="project" class="form-control">
-                                <option value="None">(Select Project)</option>
+                            <select id="project" name="project" class="form-control" required>
+                                <option value="">(Select Project)</option>
                                 <option value="matrix">Matrix API Development</option>
                                 <option value="trinity">Trinity UI Development</option>
                                 <option value="morpheus">Morpheus Data Integration</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Please select Project name.
+                            </div>
                         </div>
                     </div>
 
@@ -59,7 +58,10 @@
                     <div class="form-group">
                         <label class="control-label" for="workYesterday">What did you work on yesterday?</label>
                         <div>
-                            <textarea class="form-control" id="workYesterday" name="workYesterday">Yesterday</textarea>
+                            <textarea class="form-control" id="workYesterday" name="workYesterday" placeholder="Yesterday" required></textarea>
+                            <div class="invalid-feedback">
+                                Please fill Yesterday work description.
+                            </div>
                         </div>
                     </div>
 
@@ -67,7 +69,10 @@
                     <div class="form-group">
                         <label class="control-label" for="workToday">What will you work on today?</label>
                         <div>
-                            <textarea class="form-control" id="workToday" name="workToday">Today</textarea>
+                            <textarea class="form-control" id="workToday" name="workToday" placeholder="Today" required></textarea>
+                            <div class="invalid-feedback">
+                                Please fill Today work description.
+                            </div>
                         </div>
                     </div>
 
@@ -75,7 +80,7 @@
                     <div class="form-group">
                         <label class="control-label" for="impediment">Any Impediment(s)?</label>
                         <div>
-                            <textarea class="form-control" id="impediment" name="impediment">None</textarea>
+                            <textarea class="form-control" id="impediment" name="impediment" placeholder="None"></textarea>
                         </div>
                     </div>
 
@@ -93,5 +98,22 @@
         <div class="col"></div>
     </div>
 </div><!-- /.container -->
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+            var form = document.getElementById('needs-validation');
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        }, false);
+    })();
+</script>
 </body>
 </html>

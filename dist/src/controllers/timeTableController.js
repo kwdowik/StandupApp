@@ -50,7 +50,7 @@ var workTimeTableController = function workTimeTableController(nav) {
         var newWorkTimeItem = createSchedule(item);
         newWorkTimeItem.save(function (err) {
             if (err) {
-                var errMsg = 'Sorry there were an erorr saving the stand-up hour time. + ' + err;
+                var errMsg = 'Sorry there were an error saving the stand-up hour time. + ' + err;
                 res.render('yourTimeTable', {
                     title: 'Work Time Table',
                     userName: req.user.username,
@@ -84,7 +84,7 @@ var workTimeTableController = function workTimeTableController(nav) {
             start: data.workStart,
             end: data.workEnd
         });
-    };
+    }
 
     var getEvents = function getEvents(req, res) {
         var query = WorkTime.find();
@@ -100,23 +100,6 @@ var workTimeTableController = function workTimeTableController(nav) {
             res.send(workTimeItems);
         });
     };
-
-    // var getUsers = function () {
-    //     var url = 'mongodb://localhost/standupdb';
-    //     return new Promise(
-    //         function (resolve, reject) {
-    //     mongodb.connect(url, function (err, db) {
-    //         if (err) throw err;
-    //             db.collection("users").find({}).toArray(function (err, users) {
-    //                 if (err) reject(err);
-    //                 console.log(users);
-    //                 resolve(users);
-    //                 db.close();
-    //             });
-    //             });
-    //         }
-    //     );
-    // };
 
     return {
         getYourTimeTable: getYourTimeTable,

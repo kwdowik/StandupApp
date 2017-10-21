@@ -69,7 +69,6 @@ var cardController = function cardController(nav) {
 
         dbService.getUsers().then(function (users) {
             query.exec(function (err, results) {
-                // res.send(results);
                 res.render('index', {
                     title: "Standup - List",
                     notes: results,

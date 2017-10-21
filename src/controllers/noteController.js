@@ -25,7 +25,6 @@ var noteController = function (nav) {
             }
             else {
                 console.log('Stand-up meeting note was saved!');
-                // res.send(newNote);
                 res.redirect(301, '/');
             }
         });

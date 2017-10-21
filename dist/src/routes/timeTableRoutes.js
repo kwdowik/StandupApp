@@ -21,6 +21,7 @@ var router = function router(nav) {
     timeTableRouter.route('/update').post(workTimeTableController.updateTimeTable);
 
     timeTableRouter.route('/delete').post(workTimeTableController.deleteTimeTable);
+    /* End CRUD implementation */
 
     return timeTableRouter;
 };

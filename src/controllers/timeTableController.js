@@ -13,7 +13,7 @@ var workTimeTableController = function (nav) {
                 userName: req.user.username,
                 nav: nav,
                 message: ''
-            })
+            });
     };
 
     var getTimeTableMenu = function (req, res) {
@@ -52,23 +52,24 @@ var workTimeTableController = function (nav) {
             var newWorkTimeItem = createSchedule(item);
             newWorkTimeItem.save(function (err) {
                 if(err) {
-                    var errMsg = `Sorry there were an erorr saving the stand-up hour time. + ${err}`;
+                    var errMsg = `Sorry there were an error saving the stand-up hour time. + ${err}`;
                     res.render('yourTimeTable',
                         {
                             title: 'Work Time Table',
                             userName: req.user.username,
                             nav: nav,
                             message: errMsg
-                        })
+                        });
                 }
             });
     };
 
     var updateTimeTable = function (req, res) {
-        WorkTime.findOneAndUpdate({id: req.body.id }, { start: req.body.workStart, end: req.body.workEnd }, function (err, workTimeItem) {
-            if(err) console.error(`Err: ${err}`);
-            console.log(`Event ${req.body.title} updated successfully`);
-        })
+        WorkTime.findOneAndUpdate({id: req.body.id }, { start: req.body.workStart, end: req.body.workEnd },
+            function (err, workTimeItem) {
+                if(err) console.error(`Err: ${err}`);
+                console.log(`Event ${req.body.title} updated successfully`);
+            });
     };
 
     var deleteTimeTable = function (req, res) {
@@ -76,7 +77,7 @@ var workTimeTableController = function (nav) {
         WorkTime.findOneAndRemove({id: req.body.id }, function (err) {
             if(err) console.error(`Err: ${err}`);
             console.log(`Event delete successfully`);
-        })
+        });
     };
 
     function createSchedule(data) {
@@ -87,7 +88,7 @@ var workTimeTableController = function (nav) {
             start: data.workStart,
             end: data.workEnd
         });
-    };
+    }
 
     var getEvents = function(req, res) {
         var query = WorkTime.find();
@@ -105,23 +106,6 @@ var workTimeTableController = function (nav) {
             });
     };
 
-    // var getUsers = function () {
-    //     var url = 'mongodb://localhost/standupdb';
-    //     return new Promise(
-    //         function (resolve, reject) {
-    //     mongodb.connect(url, function (err, db) {
-    //         if (err) throw err;
-    //             db.collection("users").find({}).toArray(function (err, users) {
-    //                 if (err) reject(err);
-    //                 console.log(users);
-    //                 resolve(users);
-    //                 db.close();
-    //             });
-    //             });
-    //         }
-    //     );
-    // };
-
     return {
         getYourTimeTable: getYourTimeTable,
         getTimeTableMenu: getTimeTableMenu,
@@ -130,7 +114,7 @@ var workTimeTableController = function (nav) {
         updateTimeTable: updateTimeTable,
         deleteTimeTable: deleteTimeTable,
         getEvents: getEvents
-    }
+    };
 };
 
 module.exports = workTimeTableController;

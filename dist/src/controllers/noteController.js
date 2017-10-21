@@ -26,7 +26,6 @@ var noteController = function noteController(nav) {
                 res.render('newnote', { title: 'Standup - New Note (error)', message: errMsg });
             } else {
                 console.log('Stand-up meeting note was saved!');
-                // res.send(newNote);
                 res.redirect(301, '/');
             }
         });

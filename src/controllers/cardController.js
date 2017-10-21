@@ -74,12 +74,11 @@ var cardController = function (nav) {
                 .limit(5);
         }else {
             query.skip((req.params.cardNumber - 1 ) * 5)
-                .limit(5)
+                .limit(5);
         }
 
         dbService.getUsers().then(function (users) {
             query.exec(function (err, results) {
-                // res.send(results);
                 res.render('index',
                     {
                         title: "Standup - List",
@@ -90,7 +89,6 @@ var cardController = function (nav) {
                         userName: req.user === undefined ? undefined : req.user.username,
                         users: users
                     });
-
             });
         });
     };

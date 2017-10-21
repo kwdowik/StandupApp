@@ -59,7 +59,6 @@ var authController = function (nav) {
         });
     };
 
-
     return {
         getLoginPage: getLoginPage,
         tryToSignIn: tryToSignIn,

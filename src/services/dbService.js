@@ -21,7 +21,7 @@ var dbService = function () {
 
     return {
         getUsers: getUsers
-    }
+    };
 };
 
 module.exports = dbService;

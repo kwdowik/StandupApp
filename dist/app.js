@@ -22,7 +22,7 @@ mongoose.Promise = global.Promise;
 var mongoose = require('mongoose');
 
 // Connect to MongoDB...
-mongoose.connect('mongodb://localhost/standupdb', {
+mongoose.connect('mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb', {
     useMongoClient: true });
 
 // Logs that we connected to MongoDb
@@ -77,11 +77,6 @@ app.use(function (req, res, next) {
 http.listen(port, function () {
     console.log('Server listening on port ' + port + '!');
 });
-
-// // Listening server
-// app.listen(port, function () {
-//     console.log(`Server listening on port ${port}!`);
-// });
 
 module.exports = app;
 //# sourceMappingURL=app.js.map

@@ -9,7 +9,7 @@ module.exports = function () {
         usernameField: 'userName',
         passwordField: 'password'
     }, function (username, password, done) {
-        var url = 'mongodb://localhost/standupdb';
+        var url = 'mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb';
 
         mongodb.connect(url, function (err, db) {
             var collection = db.collection('users');

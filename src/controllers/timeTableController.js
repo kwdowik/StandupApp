@@ -34,7 +34,7 @@ var workTimeTableController = function (nav) {
         res.render('teammatesTimeTable',
             {
                 title: `${req.body.teammateName}'s Work Time Table`,
-                userName: req.user == undefined ? undefined : req.user.username,
+                userName: undefined,
                 teammate: req.body.teammateName,
                 nav: nav,
                 message: ''

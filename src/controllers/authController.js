@@ -42,7 +42,7 @@ var authController = function (nav) {
     };
 
     var register = function (req, res) {
-        mongodb.connect('mongodb://localhost/standupdb', function (err, db) {
+        mongodb.connect('mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb', function (err, db) {
             var collection = db.collection('users');
             var user = {
                 username: req.body.userName,

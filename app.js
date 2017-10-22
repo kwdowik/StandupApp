@@ -27,7 +27,7 @@ mongoose.Promise = global.Promise;
 var mongoose = require('mongoose');
 
 // Connect to MongoDB...
-mongoose.connect('mongodb://localhost/standupdb', {
+mongoose.connect('mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb', {
     useMongoClient: true});
 
 // Logs that we connected to MongoDb

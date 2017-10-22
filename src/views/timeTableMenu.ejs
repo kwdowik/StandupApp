@@ -30,7 +30,9 @@
                     <select id="teammateName" name="teammateName" class="form-control" required>
                         <option value="">(Select Teammate)</option>
                         <% for (var i=0; i < users.length; i++) { %>
-                            <option value=<%= users[i].username %>><%= users[i].username %></option>
+                            <% if (users[i].username != userName) {%>
+                                <option value=<%= users[i].username %>><%= users[i].username %></option>
+                            <% } %>
                         <% } %>
                     </select>
                 </form>

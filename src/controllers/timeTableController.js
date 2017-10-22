@@ -94,7 +94,7 @@ var workTimeTableController = function (nav) {
         var query = WorkTime.find();
         var startTime = req.query.start;
         var endTime = req.query.end;
-        var memberName = req.user == undefined ? req.query.username : req.user.username;
+        var memberName = req.query.username == undefined ? req.user.username : req.query.username;
         console.log(`User: ${memberName}`);
         query.find({$and: [{memberName: memberName ,start: {$gte: startTime}, end: {$lte: endTime}}]})
             .exec(function (err, workTimeItems) {

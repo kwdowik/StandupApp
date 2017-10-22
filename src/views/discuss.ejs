@@ -16,31 +16,52 @@
                 <p class="lead"><%= title %></p>
             </div>
             <hr>
-            <ul id="messages" style="margin-top: 2%"></ul>
-            <form action="/" method="">
-                <div class="form-group">
-                    <span style="bottom: 2%;" class="input-group-btn">
-                        <input id="chatMessage" name="chatMessage" class="form-control" placeholder="message" autocomplete="off">
-                        <button class="btn btn-primary">Send</button>
-                    </span>
-                    <input type="hidden" id="userName" value="<%=userName%>" />
-                </div>
-            </form>
+            <div id="scrollableArea" class="tab-pane">
+                <ul id="messages" style="margin-top: 2%"></ul>
+            </div>
             <script src="/socket.io/socket.io.js"></script>
             <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
             <script>
+                $(document).ready(function () {
+                    var elem = document.getElementById("scrollableArea");
+                    elem.style.maxHeight = ($( window ).height() - 300).toString() + "px";
+                });
                 $(function () {
                     var socket = io();
                     $('form').submit(function () {
-                        socket.emit('chat message', $('#chatMessage').val(), $('#userName').val());
+                        if($('#chatMessage').val() !== '') {
+                            socket.emit('chat message', $('#chatMessage').val(), $('#userName').val());
+                        }
                         $('#chatMessage').val('');
                         return false;
                     });
                     socket.on('chat message', function (msg, userName) {
-                        $('#messages').append($('<li>').text(`${userName}: ${msg}`));
+                        if(userName == $('#userName').val()) {
+                            $('#messages').append($('<li style="font-weight: bold; color: #00B7FF; float: right">').text(`${userName}: ${msg}`));
+                            $('#messages').append($('</br>'));
+                        }else {
+                            $('#messages').append($('<li>').text(`${userName}: ${msg}`));
+                        }
+                        var elem = document.getElementById("scrollableArea");
+                        elem.scrollTop = elem.scrollHeight;
                     });
                 });
             </script>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div id="footer" class="row">
+        <div class="col"></div>
+        <div class="col-10">
+            <form action="/" method="">
+                <div class="form-inline">
+                        <div class="col-10" style="bottom: 2%">
+                            <input style="width: 90%" id="chatMessage" name="chatMessage" class="form-control" placeholder="message" autocomplete="off">
+                            <button style="width: 9%" class="btn btn-primary">Send</button>
+                        </div>
+                    <input type="hidden" id="userName" value="<%=userName%>" />
+                </div>
+            </form>
         </div>
         <div class="col"></div>
     </div>

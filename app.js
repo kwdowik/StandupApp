@@ -14,7 +14,6 @@ var io = socket_io(http);
 app.io = io;
 
 var navbar = [
-    {Link: '/', Text: 'Home'},
     {Link: '/newnote', Text: 'New note'},
     {Link: '/discuss', Text: 'Discuss'},
     {Link: '/auth', Text: 'Sign In'},

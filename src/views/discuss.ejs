@@ -3,7 +3,9 @@
 <head>
     <title><%=title%></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 <% include templates/statusBar.ejs %>
@@ -26,6 +28,11 @@
                     var elem = document.getElementById("scrollableArea");
                     elem.style.maxHeight = ($( window ).height() - 300).toString() + "px";
                 });
+                window.addEventListener('resize', function() {
+                    var elem = document.getElementById("scrollableArea");
+                    elem.style.maxHeight = ($( window ).height() - 300).toString() + "px";
+                }, false);
+
                 $(function () {
                     var socket = io();
                     $('form').submit(function () {
@@ -37,7 +44,7 @@
                     });
                     socket.on('chat message', function (msg, userName) {
                         if(userName == $('#userName').val()) {
-                            $('#messages').append($('<li style="font-weight: bold; color: #00B7FF; float: right">').text(`${userName}: ${msg}`));
+                            $('#messages').append($('<li style="font-weight: bold; color: #00B7FF; float: right; margin-right: 2%">').text(`${userName}: ${msg}`));
                             $('#messages').append($('</br>'));
                         }else {
                             $('#messages').append($('<li>').text(`${userName}: ${msg}`));
@@ -50,20 +57,20 @@
         </div>
         <div class="col"></div>
     </div>
-    <div id="footer" class="row">
-        <div class="col"></div>
-        <div class="col-10">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
             <form action="/" method="">
-                <div class="form-inline">
-                        <div class="col-10" style="bottom: 2%">
-                            <input style="width: 90%" id="chatMessage" name="chatMessage" class="form-control" placeholder="message" autocomplete="off">
-                            <button style="width: 9%" class="btn btn-primary">Send</button>
+                <div class="form-inline text-center">
+                        <div class="fixed-bottom" style="bottom: 5%;">
+                            <input id="chatMessage" name="chatMessage" class="form-control" placeholder="message" autocomplete="off">
+                            <button class="btn btn-primary">Send</button>
                         </div>
                     <input type="hidden" id="userName" value="<%=userName%>" />
                 </div>
             </form>
         </div>
-        <div class="col"></div>
+        <div class="col-md-1"></div>
     </div>
 </div>
 </body>

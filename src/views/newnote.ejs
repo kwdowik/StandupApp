@@ -3,7 +3,9 @@
 <head>
     <title><%=title%></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <% include templates/statusBar.ejs %>
@@ -23,8 +25,6 @@
             </div>
             <% } %>
             <form class="form-horizontal" action="newnote" method="post" id="needs-validation" novalidate>
-                <fieldset>
-
                     <!-- Form Name -->
                     <legend>Enter a Meeting Note</legend>
 
@@ -91,8 +91,6 @@
                             <button id="btnSaveNote" name="btnSaveNote" class="btn btn-primary" type="submit">Save</button>
                         </div>
                     </div>
-
-                </fieldset>
             </form>
         </div>
         <div class="col"></div>

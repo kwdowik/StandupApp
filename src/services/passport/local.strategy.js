@@ -1,6 +1,8 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    mongodb = require('mongodb').MongoClient;
+    mongodb = require('mongodb').MongoClient,
+    bcrypt = require('bcrypt');
+
 
 module.exports = function () {
   passport.use(new LocalStrategy({
@@ -8,19 +10,22 @@ module.exports = function () {
       passwordField: 'password'
     },
       function (username, password, done) {
-          var url = 'mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb';
+          var url = 'mongodb://localhost/standupdb';
 
           mongodb.connect(url, function (err, db) {
               var collection = db.collection('users');
               collection.findOne({username: username},
-                  function (err, results) {
-                      if(results != null && results.password === password) {
-                          var user = results;
-                          done(null, user);
-                      } else {
-                          done(null, false, {message: 'Wrong password'});
-                          console.log(`wrong password`);
-                      }
+                  function (err, user) {
+                    if(err) return err;
+                    if(user === null) return done(null, false, {message: `${username} doesn't exist.`});
+                    bcrypt.compare(password, user.password, function(err, res) {
+                        if (err) return done(err);
+                        if (res === false) {
+                            return done(null, false, {message: 'Wrong password'});
+                        } else {
+                            return done(null, user);
+                        }
+                      });
                   });
           });
       }));

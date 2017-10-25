@@ -1,8 +1,9 @@
 var mongodb = require('mongodb').MongoClient;
+var bcrypt = require('bcrypt');
 
 var authController = function (nav) {
-
     var getLoginPage = function (req, res) {
+        console.log(`MESSAGE: ${req.message}`);
         res.render('login', {
             title: 'Login Page',
             nav: nav,
@@ -42,20 +43,38 @@ var authController = function (nav) {
     };
 
     var register = function (req, res) {
-        mongodb.connect('mongodb://kacper:kacper@ds155192.mlab.com:55192/standupdb', function (err, db) {
+        mongodb.connect('mongodb://localhost/standupdb', function (err, db) {
             var collection = db.collection('users');
-            var user = {
-                username: req.body.userName,
-                password: req.body.password
-            };
-            
-            collection.insert(user, function (err, results) {
-                var message = `User: ${user.username} successful registered.`;
-                if(err) {
-                    message = err;
+            hashPassword(req.body.password)
+                .then(function (hashedPassword) {
+                    return user = {
+                        username: req.body.userName,
+                        password: hashedPassword
+                    };
+                })
+                .then(function (user) {
+                    collection.insert(user, function (err, results) {
+                        var message = `User: ${user.username} successful registered.`;
+                        if(err) {
+                            message = err;
+                        }
+                        res.redirect('/?message=' + message);
+                    });
+                })
+        });
+    };
+
+    function hashPassword(password) {
+            return new Promise(
+                function (resolve, reject) {
+                    bcrypt.genSalt(10, function (err, salt) {
+                        bcrypt.hash(password, salt, function (err, hash) {
+                        console.log(hash);
+                        resolve(hash.toString());
+                        reject(err);
+                    });
                 }
-                res.redirect('/?message=' + message);
-            });
+            );
         });
     };
 

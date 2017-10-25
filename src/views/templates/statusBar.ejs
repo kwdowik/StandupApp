@@ -27,10 +27,10 @@
             function IsSignInRequired (link) {
                 return (link === '/newnote'
                         || link === '/discuss')
-                        && typeof userName == 'undefined';
+                        && typeof userName === 'undefined';
             };
             function findAuthItem (navItem) {
-               return typeof userName == 'undefined' ? navItem.Link === '/auth' : navItem.Link === '/auth/logout';
+               return typeof userName === 'undefined' ? navItem.Link === '/auth' : navItem.Link === '/auth/logout';
             };
             %>
         </nav>

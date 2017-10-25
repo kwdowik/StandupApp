@@ -11,6 +11,7 @@
   "author": "Kacper Wdowik",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "cookie-parser": "^1.4.3",

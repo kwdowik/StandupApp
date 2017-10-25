@@ -19,7 +19,7 @@
                 <p class="lead"><%= title %></p>
             </div>
             <div>
-            <% if (typeof userName == 'undefined') { %>
+            <% if (typeof userName === 'undefined') { %>
                 <button type="button" class="btn btn-primary btn-lg btn-block" disabled>Your Time Table</button>
             <% } else { %>
                 <a href="/workTimeTable/getYourTimeTable" class="btn btn-primary btn-lg btn-block">Your Time Table</a>

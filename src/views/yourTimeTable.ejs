@@ -39,7 +39,6 @@
                     }
                 );
             }
-
         }
 
         function createDataOperation(event, url) {
@@ -81,15 +80,12 @@
                 $('#createEventModal').modal('show');
             },
             eventDrop: function (event, delta, revertFunc) {
-//                alert(`eventDrop: ${event.title} \n start time: ${event.start}, \n end time: ${event.end} \n id: ${event.id}`);
                 createDataOperation(event, '/workTimeTable/update');
             },
             eventResize: function (event, delta, revertFunc) {
-//                alert(`eventResize: ${event.title} ,time: ${event.end}, id: ${event.id}`);
                 createDataOperation(event, '/workTimeTable/update');
             },
             eventClick: function (event, jsEvent, view) {
-//                alert(`eventClick: ${event.id}, \n ${event.start} \n ${event.end}`);
                 endtime = moment(event.end).format('h:mm');
                 starttime = moment(event.start).format('ddd, MMM d, h:mm');
                 var mywhen = starttime + ' - ' + endtime;

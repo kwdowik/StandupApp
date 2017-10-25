@@ -9,30 +9,32 @@ var cardController = function (nav) {
         }
         var query = Note.find();
         var numberOfCards = 1;
-        getNumberOfNotes().then(function (count) {
+        getNumberOfNotes()
+            .then(function (count) {
             numberOfCards = count;
-        });
-        dbService.getUsers().then(function (users) {
-            query.sort({createdOn: 'desc'})
-                .skip((req.params.cardNumber - 1) * 5)
-                .limit(5)
-                .exec(function (err, results) {
-                    res.render('index',
-                        {
-                            title: 'Standup - List',
-                            notes: results,
-                            currentCard: req.params.cardNumber === undefined ? 1 : req.params.cardNumber,
-                            numberOfCards: numberOfCards,
-                            nav: nav,
-                            message: req.query.message,
-                            userName: req.user === undefined ? undefined : req.user.username,
-                            users: users
-                        });
-                });
-        });
+            })
+            .then(dbService.getUsers)
+            .then(function (users) {
+                query.sort({createdOn: 'desc'})
+                    .skip((req.params.cardNumber - 1) * 5)
+                    .limit(5)
+                    .exec(function (err, results) {
+                        res.render('index',
+                            {
+                                title: 'Standup - List',
+                                notes: results,
+                                currentCard: req.params.cardNumber === undefined ? 1 : req.params.cardNumber,
+                                numberOfCards: numberOfCards,
+                                nav: nav,
+                                message: req.query.message,
+                                userName: req.user === undefined ? undefined : req.user.username,
+                                users: users
+                            });
+                    });
+            });
     };
 
-    var getNumberOfNotes = function (filter) {
+    function getNumberOfNotes(filter) {
         var query = Note.find();
         if(filter == null || filter.length === 0) {
             return new Promise(
@@ -55,7 +57,6 @@ var cardController = function (nav) {
                 }
             );
         }
-
     };
 
     var getNoteByMember = function (req, res) {
@@ -65,9 +66,7 @@ var cardController = function (nav) {
         getNumberOfNotes(filter).then(function (count) {
             numberOfCards = count;
         });
-
         query.sort({ createdOn: 'desc'});
-
         if(filter.length > 0)
         {
             query.where({ memberName: filter })
@@ -76,7 +75,6 @@ var cardController = function (nav) {
             query.skip((req.params.cardNumber - 1 ) * 5)
                 .limit(5);
         }
-
         dbService.getUsers().then(function (users) {
             query.exec(function (err, results) {
                 res.render('index',

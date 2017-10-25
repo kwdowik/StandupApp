@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="084fbfbc-8c44-4e36-86bc-3eb6e5c3cb82" name="Default" comment="delete node_modules.">
+    <list default="true" id="084fbfbc-8c44-4e36-86bc-3eb6e5c3cb82" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/discuss.ejs" afterPath="$PROJECT_DIR$/src/views/discuss.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/index.ejs" afterPath="$PROJECT_DIR$/src/views/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/login.ejs" afterPath="$PROJECT_DIR$/src/views/login.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/newnote.ejs" afterPath="$PROJECT_DIR$/src/views/newnote.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/register.ejs" afterPath="$PROJECT_DIR$/src/views/register.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/teammatesTimeTable.ejs" afterPath="$PROJECT_DIR$/src/views/teammatesTimeTable.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/templates/statusBar.ejs" afterPath="$PROJECT_DIR$/src/views/templates/statusBar.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/timeTableMenu.ejs" afterPath="$PROJECT_DIR$/src/views/timeTableMenu.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/yourTimeTable.ejs" afterPath="$PROJECT_DIR$/src/views/yourTimeTable.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -345,7 +334,7 @@
       <option name="presentableId" value="Default" />
       <updated>1508616315346</updated>
       <workItem from="1508616316522" duration="26721000" />
-      <workItem from="1508830646495" duration="12421000" />
+      <workItem from="1508830646495" duration="12528000" />
     </task>
     <task id="LOCAL-00001" summary="Change source of static file and fixed some minor bugs">
       <created>1508681555223</created>
@@ -375,11 +364,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508705896290</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added change related with status bar and minor fixes to discuss view.">
+      <created>1508948968810</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1508948968811</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39142000" />
+    <option name="totallyTimeSpent" value="39249000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,7 +420,8 @@
     <MESSAGE value="Change db url." />
     <MESSAGE value="delete node_modules." />
     <MESSAGE value="Added changes to discuss menu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added changes to discuss menu." />
+    <MESSAGE value="Added change related with status bar and minor fixes to discuss view." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added change related with status bar and minor fixes to discuss view." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -679,10 +676,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1508948864000" expanded="true" signature="44435:44452" ph="..." />
-            <marker date="1508948864000" expanded="true" signature="44435:44470" ph="..." />
-            <marker date="1508948864000" expanded="true" signature="44435:44483" ph="..." />
-            <marker date="1508948864000" expanded="true" signature="44435:44498" ph="..." />
+            <marker date="1508948877000" expanded="true" signature="44405:44422" ph="..." />
+            <marker date="1508948877000" expanded="true" signature="44405:44440" ph="..." />
+            <marker date="1508948877000" expanded="true" signature="44405:44453" ph="..." />
+            <marker date="1508948877000" expanded="true" signature="44405:44468" ph="..." />
           </folding>
         </state>
       </provider>

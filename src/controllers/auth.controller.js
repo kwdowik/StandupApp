@@ -1,9 +1,8 @@
 var mongodb = require('mongodb').MongoClient;
-var bcrypt = require('bcrypt');
+var userService = require('../services/user.service');
 
 var authController = function (nav) {
     var getLoginPage = function (req, res) {
-        console.log(`MESSAGE: ${req.message}`);
         res.render('login', {
             title: 'Login Page',
             nav: nav,
@@ -43,39 +42,23 @@ var authController = function (nav) {
     };
 
     var register = function (req, res) {
-        mongodb.connect('mongodb://localhost/standupdb', function (err, db) {
-            var collection = db.collection('users');
-            hashPassword(req.body.password)
-                .then(function (hashedPassword) {
-                    return user = {
-                        username: req.body.userName,
-                        password: hashedPassword
-                    };
-                })
-                .then(function (user) {
-                    collection.insert(user, function (err, results) {
-                        var message = `User: ${user.username} successful registered.`;
-                        if(err) {
-                            message = err;
-                        }
-                        res.redirect('/?message=' + message);
-                    });
-                })
-        });
-    };
-
-    function hashPassword(password) {
-            return new Promise(
-                function (resolve, reject) {
-                    bcrypt.genSalt(10, function (err, salt) {
-                        bcrypt.hash(password, salt, function (err, hash) {
-                        console.log(hash);
-                        resolve(hash.toString());
-                        reject(err);
-                    });
-                }
-            );
-        });
+        var user;
+        userService.hashPassword(req.body.password)
+            .then(function (hashedPassword) {
+                 user = {
+                    username: req.body.userName,
+                    password: hashedPassword
+                };
+                console.log(user.username);
+                return userService.insertUser(user)
+            })
+            .then(function () {
+                var message = `User: ${user.username} successful registered`;
+                res.redirect('/?message=' + message);
+            })
+            .catch(function (err) {
+                res.redirect('/?message=' + err);
+            })
     };
 
     return {

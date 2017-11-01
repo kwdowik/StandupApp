@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha './test/*.spec.js'",
     "start": "node app.js"
   },
   "author": "Kacper Wdowik",
@@ -28,6 +28,7 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "sinon": "^4.0.2",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "supertest": "^3.0.0",

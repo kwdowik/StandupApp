@@ -1,12 +1,12 @@
 var WorkTime = require('../models/workTimeTableModel');
-var dbService = require('../services/dbService')();
+var userService = require('../services/user.service');
+var timeTableService = require('../services/timeTable.service');
 var mongodb = require('mongodb').MongoClient;
 
 
 var workTimeTableController = function (nav) {
 
     var getYourTimeTable = function (req, res) {
-        console.log(`UserName: ${req.user.username}`);
         res.render('yourTimeTable',
             {
                 title: 'Your Work Time Table',
@@ -17,7 +17,8 @@ var workTimeTableController = function (nav) {
     };
 
     var getTimeTableMenu = function (req, res) {
-        dbService.getUsers().then(function (users) {
+        userService.getUsers()
+            .then(function (users) {
             res.render('timeTableMenu',
                 {
                     title: 'Time Table Menu',
@@ -30,7 +31,6 @@ var workTimeTableController = function (nav) {
     };
     
     var getTeammateTimeTable = function (req, res) {
-        console.log(`Selected Teammate: ${req.body.teammateName}`);
         res.render('teammatesTimeTable',
             {
                 title: `${req.body.teammateName}'s Work Time Table`,
@@ -42,26 +42,21 @@ var workTimeTableController = function (nav) {
     };
 
     var createTimeTable = function (req, res) {
-        var item = req.body;
+        let item = req.body;
         item.user = req.user.username;
-            console.log(`memberName: ${req.user.username}`);
-            console.log(`title: ${item.title}`);
-            console.log(`start: ${item.workStart}`);
-            console.log(`end: ${item.workEnd}`);
-
-            var newWorkTimeItem = createSchedule(item);
-            newWorkTimeItem.save(function (err) {
-                if(err) {
-                    var errMsg = `Sorry there were an error saving the stand-up hour time. + ${err}`;
-                    res.render('yourTimeTable',
-                        {
-                            title: 'Work Time Table',
-                            userName: req.user.username,
-                            nav: nav,
-                            message: errMsg
-                        });
-                }
-            });
+        let newWorkTimeItem = timeTableService.createTimeTable(item);
+        newWorkTimeItem.save(function (err) {
+            if(err) {
+                var errMsg = `Sorry there were an error saving the stand-up hour time. + ${err}`;
+                res.render('yourTimeTable',
+                    {
+                        title: 'Work Time Table',
+                        userName: req.user.username,
+                        nav: nav,
+                        message: errMsg
+                    });
+            }
+        });
     };
 
     var updateTimeTable = function (req, res) {
@@ -79,16 +74,6 @@ var workTimeTableController = function (nav) {
             console.log(`Event delete successfully`);
         });
     };
-
-    function createSchedule(data) {
-        return new WorkTime({
-            id: data.id,
-            memberName: data.user,
-            title: data.title,
-            start: data.workStart,
-            end: data.workEnd
-        });
-    }
 
     var getEvents = function(req, res) {
         var query = WorkTime.find();

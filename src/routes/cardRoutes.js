@@ -3,7 +3,7 @@ var cardRouter = express.Router();
 
 var router = function (nav) {
 
-    var cardController = require('../controllers/cardController')(nav);
+    var cardController = require('../controllers/card.controller')(nav);
     cardRouter.route('/')
         .get(cardController.getNotePage);
 

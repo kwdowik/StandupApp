@@ -3,7 +3,7 @@ var authRouter = express.Router();
 var passport = require('passport');
 
 var router = function (nav) {
-    var authController = require('../controllers/authController')(nav);
+    var authController = require('../controllers/auth.controller')(nav);
 
     authRouter.route('/')
         .get(authController.getLoginPage);

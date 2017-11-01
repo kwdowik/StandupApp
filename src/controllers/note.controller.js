@@ -1,4 +1,5 @@
 var Note = require('../models/noteModel');
+var noteService = require('../services/note.service');
 
 var noteController = function (nav) {
 
@@ -10,14 +11,7 @@ var noteController = function (nav) {
     };
 
     var createNewNote = function (req ,res) {
-        var newNote = new Note({
-            memberName: req.body.memberName,
-            project: req.body.project,
-            workYesterday: req.body.workYesterday,
-            workToday: req.body.workToday,
-            impediment: req.body.impediment
-        });
-
+        let newNote = noteService.createNote(req.body);
         newNote.save(function (err) {
             if(err) {
                 var errMsg = 'Sorry there was an error saving the stand-up meeting note. ' + err;

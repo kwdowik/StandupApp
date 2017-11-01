@@ -3,7 +3,7 @@ var timeTableRouter = express.Router();
 
 var router = function (nav) {
 
-    var workTimeTableController = require('../controllers/timeTableController')(nav);
+    var workTimeTableController = require('../controllers/timeTable.controller')(nav);
 
     timeTableRouter.route('/')
         .get(workTimeTableController.getTimeTableMenu);

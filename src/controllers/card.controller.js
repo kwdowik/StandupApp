@@ -1,4 +1,3 @@
-var Note = require('../models/noteModel');
 var userService = require('../services/user.service');
 var noteService = require('../services/note.service');
 

@@ -1,8 +1,6 @@
-var WorkTime = require('../models/workTimeTableModel');
 var userService = require('../services/user.service');
 var timeTableService = require('../services/timeTable.service');
 var mongodb = require('mongodb').MongoClient;
-
 
 var workTimeTableController = function (nav) {
 
@@ -60,35 +58,34 @@ var workTimeTableController = function (nav) {
     };
 
     var updateTimeTable = function (req, res) {
-        WorkTime.findOneAndUpdate({id: req.body.id }, { start: req.body.workStart, end: req.body.workEnd },
-            function (err, workTimeItem) {
-                if(err) console.error(`Err: ${err}`);
-                console.log(`Event ${req.body.title} updated successfully`);
-            });
+        timeTableService.updateTimeTable(req.body)
+            .then(function (updatedWorkItem) {
+                console.log(`${updatedWorkItem.id} updated successful.`);
+            })
+            .catch(function (err) {
+               console.error(`Err: ${err}`);
+            })
     };
 
     var deleteTimeTable = function (req, res) {
-        console.log(`ID: ${req.body.id}`);
-        WorkTime.findOneAndRemove({id: req.body.id }, function (err) {
-            if(err) console.error(`Err: ${err}`);
-            console.log(`Event delete successfully`);
-        });
+        timeTableService.deleteTimeTable(req.body)
+            .then(function (deletedWorkItem) {
+                console.log(`Event ${deletedWorkItem.id} deleted successfully`);
+            })
+            .catch(function (err) {
+                console.log(`Error during deleting event.\nError: ${err}`);
+            });
     };
 
-    var getEvents = function(req, res) {
-        var query = WorkTime.find();
-        var startTime = req.query.start;
-        var endTime = req.query.end;
-        var memberName = req.query.username == undefined ? req.user.username : req.query.username;
-        console.log(`User: ${memberName}`);
-        query.find({$and: [{memberName: memberName ,start: {$gte: startTime}, end: {$lte: endTime}}]})
-            .exec(function (err, workTimeItems) {
-                if(err) {
-                    console.error(`Error: ${err}`);
-                }
-                console.log(`Results: ${workTimeItems}`);
-                res.send(workTimeItems);
-            });
+    var getEvents = function (req, res) {
+      timeTableService.getTimeTableEvents(req.query, req.user)
+          .then(function (workTimeEvents) {
+              console.log(`Results: ${workTimeEvents}`);
+              res.send(workTimeEvents);
+          })
+          .catch(function (err) {
+              console.log(`Error in getEvents()\nError: ${err}`);
+          });
     };
 
     return {

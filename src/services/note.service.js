@@ -22,7 +22,6 @@ exports.querySort = function(cardNumber, filter) {
 
 exports.getNumberOfNotes = function(filter) {
     var query = Note.find({});
-    console.log(`Filter: ${filter}`);
     if(filter === undefined || filter.length === 0) {
         return new Promise(
             function (resolve, reject) {

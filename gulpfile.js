@@ -16,7 +16,7 @@ gulp.task('style', function () {
 });
 
 gulp.task('test', () => {
-   gulp.src('test/note.test.js', {read: false})
+   gulp.src('test/*.test.js', {read: false})
        .pipe(mocha({report: 'nyan'}));
 });
 

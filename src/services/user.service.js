@@ -4,11 +4,18 @@ const collectionName = 'users';
 var bcrypt = require('bcrypt');
 
 exports.getUsers = function () {
-    return dbService.getAll(url, collectionName);
+    return dbService.read(url, collectionName);
 };
 
 exports.insertUser = function (user) {
   return dbService.create(url, collectionName, user);
+};
+
+exports.deleteUser = function (user) {
+    var query = {
+     user: user.user
+    };
+  return dbService.delete(url, collectionName, query);
 };
 
 exports.hashPassword = function(password) {
@@ -22,4 +29,15 @@ exports.hashPassword = function(password) {
                 }
             );
         });
+};
+
+exports.encryptPassword = function (password, userpassword) {
+    return new Promise(
+        function (resolve, reject) {
+            bcrypt.compare(password, userpassword, function(err, response) {
+                if(err) reject(err);
+                resolve(response);
+            })
+        }
+    )
 };

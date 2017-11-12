@@ -1,4 +1,3 @@
-
 module.exports = function (io) {
     io.on('connection', function (socket) {
         console.log(`Socket client: ${socket.client[0]} \n Socket id: ${socket.id}`);
@@ -11,5 +10,3 @@ module.exports = function (io) {
         });
     });
 };
-
-

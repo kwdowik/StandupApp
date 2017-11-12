@@ -17,5 +17,4 @@ var router = function (nav) {
     return cardRouter;
 };
 
-
 module.exports = router;

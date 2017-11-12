@@ -1,51 +1,48 @@
-var WorkTime = require('../models/workTimeTableModel');
+var dbService = require('./db.service');
+const url = 'mongodb://localhost/standupdb';
+const collectionName = 'worktimes';
+const WorkTime = require('../models/workTimeTableModel');
 
 exports.createTimeTable = function(data) {
-    return new WorkTime({
+    var workTimeTableItem = new WorkTime({
         id: data.id,
         memberName: data.user,
         title: data.title,
         start: data.workStart,
         end: data.workEnd
     });
+    return dbService.create(url, collectionName, workTimeTableItem);
 };
 
 exports.updateTimeTable = function (data) {
-    var query = WorkTime.find({});
-    return new Promise(
-        function (resolve, reject) {
-            query.findOneAndUpdate({id: data.id }, { start: data.workStart, end: data.workEnd },
-                function (err, workTimeItem) {
-                    if(err) reject(err);
-                    resolve(workTimeItem);
-            });
-        });
+    var searchQuery =
+    {
+        id: data.id
+    };
+    var updateQuery =
+    {
+        $set: {
+            start: new Date(data.workStart),
+            end: new Date(data.workEnd)
+        }
+    };
+    return dbService.update(url, collectionName, data, searchQuery, updateQuery);
 };
 
 exports.deleteTimeTable = function (data) {
-    var query = WorkTime.find({});
-    return new Promise(
-        function (resolve, reject) {
-            query.findOneAndRemove({id: data.id },
-                function (err) {
-                    if(err) reject(err);
-                    resolve()
-            });
-        }
-    )
+    var query = {
+        id: data.id
+    };
+    return dbService.delete(url, collectionName, query)
 };
 
 exports.getTimeTableEvents = function(data, user) {
-    var query = WorkTime.find({});
-    return new Promise(
-        function (resolve, reject) {
-            var memberName = data.username == undefined ? user.username : data.username;
-            query.find({$and: [{memberName: memberName ,start: {$gte: data.start}, end: {$lte: data.end}}]})
-                .exec(function (err, workTimeEvents) {
-                    if(err) reject(err);
-                    resolve(workTimeEvents)
-                });
-        }
-    );
+    var startISODate = new Date(data.start);
+    var endISODate = new Date(data.end);
+    var memberName = data.username == undefined ? user.username : data.username;
+    var query = {
+        memberName: memberName, start: {$gte: startISODate} ,end: {$lte: endISODate}
+    };
+    return dbService.read(url, collectionName, query)
 };
 

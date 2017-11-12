@@ -10,18 +10,17 @@ var noteController = function (nav) {
         next();
     };
 
-    var createNewNote = function (req ,res) {
-        let newNote = noteService.createNote(req.body);
-        newNote.save(function (err) {
-            if(err) {
-                var errMsg = 'Sorry there was an error saving the stand-up meeting note. ' + err;
-                res.render('newnote', {title: 'Standup - New Note (error)', message: errMsg});
-            }
-            else {
-                console.log('Stand-up meeting note was saved!');
-                res.redirect(301, '/');
-            }
-        });
+    var createNewNote = function (req, res) {
+        let item = req.body;
+        noteService.createNote(item)
+          .then(msg => {
+              console.log('Stand-up meeting note was saved.');
+              res.redirect(301, '/');
+          })
+          .catch(err => {
+              var errMsg = `Sorry there was an error saving the stand-up meeting note.\nErr: ${err}`;
+              res.render('newnote', {title: 'Standup - New Note (error)', message: errMsg});
+          })
     };
 
     var getNote = function (req, res) {

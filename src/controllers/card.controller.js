@@ -7,16 +7,15 @@ var cardController = function (nav) {
         var currentCard = req.params.cardNumber === undefined ? 1 : req.params.cardNumber;
         var numberOfCards = 1;
         noteService.getNumberOfNotes()
-            .then(function (count) {
-                console.log(`Count ${count}`);
+            .then(count => {
                 numberOfCards = count;
-            })
-            .then(userService.getUsers)
-            .then(function (usersArr) {
-                users = usersArr;
-            })
-            .then(noteService.querySort(currentCard))
-            .then(function (results) {
+            });
+            userService.getUsers()
+                .then(usersArr => {
+                    users = usersArr;
+                });
+            noteService.querySort(currentCard)
+                .then(results => {
                 res.render('index',
                     {
                         title: 'Standup - List',
@@ -28,7 +27,8 @@ var cardController = function (nav) {
                         userName: req.user === undefined ? undefined : req.user.username,
                         users: users
                     });
-            });
+            })
+            .catch((msg) => console.log(`Err: ${msg}`));
     };
 
     var getNoteByMember = function (req, res) {
@@ -36,15 +36,15 @@ var cardController = function (nav) {
         var users = [];
         var numberOfCards = 1;
         noteService.getNumberOfNotes(filter)
-            .then(function (count) {
+            .then(count => {
                 numberOfCards = count;
-            })
-            .then(userService.getUsers)
-            .then(function (usersArr) {
+            });
+        userService.getUsers()
+            .then(usersArr => {
                 users = usersArr;
-            })
-            .then(noteService.querySort(1, filter))
-            .then(function (results) {
+            });
+        noteService.querySort(1, filter)
+            .then(results => {
                 res.render('index',
                     {
                         title: "Standup - List",

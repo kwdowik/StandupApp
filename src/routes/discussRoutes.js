@@ -1,6 +1,5 @@
 var express = require('express');
 var discussRouter = express.Router();
-var authController = require('../controllers/auth.controller')();
 
 var router = function (io, nav) {
 
@@ -13,7 +12,5 @@ var router = function (io, nav) {
 
     return discussRouter;
 };
-
-
 
 module.exports = router;

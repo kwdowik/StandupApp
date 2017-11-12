@@ -42,9 +42,11 @@ var workTimeTableController = function (nav) {
     var createTimeTable = function (req, res) {
         let item = req.body;
         item.user = req.user.username;
-        let newWorkTimeItem = timeTableService.createTimeTable(item);
-        newWorkTimeItem.save(function (err) {
-            if(err) {
+        timeTableService.createTimeTable(item)
+            .then(msg => {
+                console.log(msg);
+            })
+            .catch(err => {
                 var errMsg = `Sorry there were an error saving the stand-up hour time. + ${err}`;
                 res.render('yourTimeTable',
                     {
@@ -53,8 +55,7 @@ var workTimeTableController = function (nav) {
                         nav: nav,
                         message: errMsg
                     });
-            }
-        });
+            })
     };
 
     var updateTimeTable = function (req, res) {

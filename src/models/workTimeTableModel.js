@@ -1,19 +1,29 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
 
-var workTimeSchema = new Schema({
+var requiredStringValidator = [
+    function (value) {
+        var testValue = value.trim();
+        console.log(`Validation: ${testValue.length > 0}`);
+        return (testValue.length > 0);
+    },
+    '{PATH} cannot be empty'];
+
+var workTimeSchema = new mongoose.Schema({
     id: {
-      type: String,
-      require: true
+        type: String,
+        required: true,
+        validation: requiredStringValidator
     },
     memberName: {
         type: String,
-        require: true,
+        required: true,
+        validation: requiredStringValidator
     },
     title: {
         type: String,
-        default: Date.now
+        default: 'Work'
     },
     start: {
         type: Date,

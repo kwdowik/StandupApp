@@ -1,6 +1,7 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     mongodb = require('mongodb').MongoClient,
+    userService = require('../user.service');
     bcrypt = require('bcrypt');
 
 
@@ -18,14 +19,17 @@ module.exports = function () {
                   function (err, user) {
                     if(err) return err;
                     if(user === null) return done(null, false, {message: `${username} doesn't exist.`});
-                    bcrypt.compare(password, user.password, function(err, res) {
-                        if (err) return done(err);
-                        if (res === false) {
-                            return done(null, false, {message: 'Wrong password'});
-                        } else {
-                            return done(null, user);
-                        }
-                      });
+                    userService.encryptPassword(password, user.password)
+                        .then((response) => {
+                            if(response == false) {
+                                return done(null, false, {message: 'Wrong password'});
+                            } else {
+                                return done(null, user);
+                            }
+                        })
+                        .catch((err) => {
+                           done(err);
+                        });
                   });
           });
       }));

@@ -17,3 +17,16 @@ Socket.io,
 Chai,
 Mocha,
 Gulp.
+
+## Run Applicaiton
+If you run this project first time, you must install required dependencies form repository.
+For this type in console:
+```
+npm install
+```
+To run app you should type in console:
+```
+npm start
+```
+
+also you should run mongodb locally
